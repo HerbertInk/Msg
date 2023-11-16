@@ -2,15 +2,15 @@ import socket
 import threading
 
 def connect_to_server():
-    print("\n mnbv Talk \n")
-    server_option = input("1. mnbv '127.0.0.1:63900'\n2. alt decide 'IP:Port'\n use port 63903: ")
+    print("\n MNBV Talk \n")
+    server_option = input("1. mnbv-server-1  127.0.0.1:63900\n2. Alt IP:Port\n use port 63903: ")
 
     try:
         if server_option == '1':
             server_host = '127.0.0.1'
             server_port = 63900
         else:
-            custom_server = input("drop 'IP:Port': ").split(':')
+            custom_server = input("drop IP:Port: ").split(':')
             server_host = custom_server[0]
             server_port = int(custom_server[1])
 
@@ -30,7 +30,7 @@ except ConnectionRefusedError:
     print("adjust addrss sequence")
     exit(1)
 
-username = input("drop username, no cap: ")
+username = input("---drop username, no cap---: ")
 client_socket.send(username.encode())
 
 def receive_messages():
