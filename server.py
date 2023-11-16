@@ -17,7 +17,7 @@ try:
         host = '127.0.0.1'
         port = 63909
     else:
-        custom_ip = input("drop 'IP:Port': ").split(':')
+        custom_ip = input("drop IP:Port: ").split(':')
         host = custom_ip[0]
         port = int(custom_ip[1])
 
@@ -29,7 +29,12 @@ server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.bind((host, port))
 server_socket.listen(5)
 
-connected_clients = {} # dict
+connected_clients = {}
+"""
+    dictionary to store client info
+    keys---client Identifiers
+    values---connected client details
+"""
 stop_server = threading.Event()
 
 def handle_client(client_socket, username):
@@ -45,6 +50,10 @@ def handle_client(client_socket, username):
 
         while True:
             data = client_socket.recv(1024).decode()
+            """
+                1024 maximum amount of data (in bytes)
+                transmitted on a network
+            """
             if not data:
                 break
 
@@ -62,7 +71,7 @@ def handle_client(client_socket, username):
         print(f"{username} exited chat {addr[0]}:{addr[1]} unexpected") # {e}
         """
             a message of a connection drop
-            is broadcast to server when the client
+            is sent to a server when a client
             disconnects unexpectedly.
         """
 
@@ -84,12 +93,14 @@ def server_shutdown():
         On 'Ctrl+C' in server terminal a message of a connection drop
         appears on the server terminal when a client [n-1] on a network
         initiates a connection.
-        Unfortunately the new user cannot access the message functinality
-        since the server allows no more client connections.
-        Existing connected client can still communicate
     """
     stop_server.set()
     server_socket.close()
+    """
+        Unfortunately the new user cannot access the message functionality
+        since the server allows no more client connections.
+        Existing connected client can still communicate
+    """
     exit(1)
 
 while not stop_server.is_set():
@@ -109,7 +120,7 @@ while not stop_server.is_set():
         server_shutdown()
         exit(1)
 
-    except Exception as e: # ~!
+    except Exception as e: # ~! ---no print yet
         print(f"error accepting conn...: {e}")
         exit(1)
 
