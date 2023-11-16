@@ -3,7 +3,7 @@ import threading
 
 def connect_to_server():
     print("\n mnbv Talk \n")
-    server_option = input("1. mnbv \n2. alt decide 'IP:Port'\n: ")
+    server_option = input("1. mnbv '127.0.0.1:63900'\n2. alt decide 'IP:Port'\n use port 63903: ")
 
     try:
         if server_option == '1':
